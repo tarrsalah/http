@@ -11,6 +11,7 @@ func New(middlewares ...Middleware) Chain {
 }
 
 func (c Chain) Then(handler http.Handler) (final http.Handler) {
+	final = handler
 	for i := len(c) - 1; i >= 0; i-- {
 		final = c[i](final)
 	}
@@ -20,5 +21,5 @@ func (c Chain) Append(middlewares ...Middleware) Chain {
 	ms := make([]Middleware, len(c)+len(middlewares))
 	copy(ms, c)
 	copy(ms[len(c):], middlewares)
-	return New(ms...)
+	return ms
 }
