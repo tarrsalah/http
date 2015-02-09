@@ -1,1 +1,1 @@
-# Hacking the web with go
+# Some go http related stuffs
