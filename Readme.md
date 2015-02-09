@@ -1,1 +1,1 @@
-# Some go http related stuffs
+Some go http related code.

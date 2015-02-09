@@ -1,4 +1,2 @@
-all: mm
-
-mm:
+all:
 	go test ./mm/...
