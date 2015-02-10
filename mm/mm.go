@@ -3,6 +3,7 @@ package mm
 import "net/http"
 
 type Middleware func(http.Handler) http.Handler
+
 type Chain []Middleware
 
 func New(middlewares ...Middleware) Chain {
@@ -17,6 +18,7 @@ func (c Chain) Then(handler http.Handler) (final http.Handler) {
 	}
 	return
 }
+
 func (c Chain) Append(middlewares ...Middleware) Chain {
 	ms := make([]Middleware, len(c)+len(middlewares))
 	copy(ms, c)
