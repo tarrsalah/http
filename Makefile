@@ -1,10 +1,16 @@
 all: test
 
 test:
-	go test ./mm/...
+	go test ./...
+
 build:
+	go build ./...
+	go install ./...
+
+example:
 	go build -o server ./example/...
 
-run: build
+run: example
 	./server
 
+.PHONY: example
