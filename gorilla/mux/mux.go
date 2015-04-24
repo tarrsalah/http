@@ -5,6 +5,15 @@ import (
 	"net/http"
 )
 
+type Router struct {
+	*mux.Router
+	context interface{}
+}
+
+func (r Router) Handle(path string, h HandlerFunc) {
+	r.Router.Handle(path, Handler{r.context, h})
+}
+
 type HandlerFunc func(w http.ResponseWriter, r *http.Request, context interface{})
 
 type Handler struct {
@@ -14,15 +23,6 @@ type Handler struct {
 
 func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	h.HandlerFunc(w, r, h.context)
-}
-
-type Router struct {
-	*mux.Router
-	context interface{}
-}
-
-func (r Router) Handle(path string, h HandlerFunc) {
-	r.Router.Handle(path, Handler{r.context, h})
 }
 
 func NewRouter(context interface{}) Router {
